@@ -35,7 +35,7 @@ Discussion
 
     3.Please enumerate the test cases you considered and explain their relevance.
 
-    - I did 4 test cases of different sizes in the "tests" folder . 
+    - I did 4 ( now 8 ) test cases of different sizes in the "tests" folder . 
 */
 
 
@@ -45,6 +45,12 @@ typedef string user;
 
 /// Returns the shortest distance between user A and user B
 int BFSfrom2Nodes(unordered_map < user , vector < user > > & Graph , user userA , user userB) {
+
+    /// check if userA and userB are the same
+    if (userA == userB) return 0;
+
+    /// check if users are empty 
+    if (userA.empty() || userB.empty()) return -2;
 
     queue < user > Queue;
 
@@ -57,6 +63,7 @@ int BFSfrom2Nodes(unordered_map < user , vector < user > > & Graph , user userA 
     {
         for (auto const& friendIter : personIter.second)
         {
+            /// make all friends/nodes not visited
             Distance[friendIter] = { -INT_MAX , 0 };
         }
     }
@@ -83,7 +90,7 @@ int BFSfrom2Nodes(unordered_map < user , vector < user > > & Graph , user userA 
                 return Distance[friendID].first + Distance[personID].first + 1;
 
             /// check if friend/node was not visited
-            if (Distance[friendID].first == -INT_MAX ) {
+            if (Distance[friendID].second == 0 ) {
                 /// calculate the distance to friendID
                 Distance[friendID].first = Distance[personID].first + 1;
                 Distance[friendID].second = Distance[personID].second;
@@ -99,7 +106,7 @@ int BFSfrom2Nodes(unordered_map < user , vector < user > > & Graph , user userA 
 
 int main()
 {
-    int TOTAL_TESTS = 4 , succ_tests = 0;
+    int TOTAL_TESTS = 8 , succ_tests = 0;
     for (int test = 0 ; test < TOTAL_TESTS; test++)
     {
 
